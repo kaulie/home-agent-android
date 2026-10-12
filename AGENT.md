@@ -1,33 +1,33 @@
 # AGENT.md — 后续 Agent 对本仓库的说明与向导
 
-你是来改 **home-agent-android** 的。先读本文，再按 [`README.md`](README.md) 与各 module README 展开理解。  
-本仓没有 `project_map/`。这是 Android 客户端：**只打 Brain HTTP**。  
+你是来改 **home-agent-android** 的。先读本文，再按 [`docs/project_map/`](docs/project_map/README.md) 展开理解。  
+这是 Android 客户端：**只打 Brain HTTP**。  
 os 已归档；不要再往 os 的 `android/` 提交。
 
-## 1. 对本项目的理解
+## 1. 对本项目的理解（必须从 docs/project_map 展开）
 
 | 你应建立的判断 | 展开阅读 |
 |---|---|
-| 主发出窗是 `:living-room-android`（HomeAgent Console）：Intent Source + Endpoint + 本机 Runtime（扫描 / CameraX / 电话 / GoPro fallback） | [README.md](README.md)、[living-room-android/README.md](living-room-android/README.md) |
-| `:app-v2` 是机顶盒 Edge（网易云 + 投屏技能）；`:app` 是旧中控，不再当主发出窗 | [app-v2/README.md](app-v2/README.md) |
-| `app-v2` 技能 Kotlin 在本仓 `plugins/*/android/`，**声明**仍在 marketplace | [plugins/README.md](plugins/README.md)、`app-v2/build.gradle.kts` 的 `sourceSets` |
-| 不要依赖 os 的 `../plugins/`。不要把 Admin 塞进 Console | README |
-| 不在 `:4220` 发版 | README 构建节 |
+| 主发出窗是 `:living-room-android`（HomeAgent Console）：Intent Source + Endpoint + 本机 Runtime（扫描 / CameraX / 电话 / GoPro fallback） | [positioning.md](docs/project_map/positioning.md) |
+| `:app-v2` 是机顶盒 Edge（网易云 + 投屏技能）；`:app` 是旧中控，不再当主发出窗 | 同上 |
+| `app-v2` 技能 Kotlin 在本仓 `plugins/*/android/`，**声明**仍在 marketplace | [architecture.md](docs/project_map/architecture.md) |
+| 不要依赖 os 的 `../plugins/`。不要把 Admin 塞进 Console | [development.md](docs/project_map/development.md) |
+| 不在 `:4220` 发版。minSdk Console 26 / app-v2 24 | [deployment.md](docs/project_map/deployment.md)、[tech-stack.md](docs/project_map/tech-stack.md) |
 
-Runtime 会要求优先读根目录 `AGENT.md`。你正在读的就是那份。
+Runtime 会要求优先读根目录 `AGENT.md`。你正在读的就是那份。与代码不符时以 `docs/project_map` + 代码为准。
 
 ## 2. 开工前清单
 
 1. workspace origin 是 `https://github.com/kaulie/home-agent-android`。
 2. 从最新 `main` 开 `feat|fix|chore/<简述>`。
-3. 只改点名的 module；`settings.gradle.kts` 已 `include` 三套。
+3. 读 `docs/project_map/`，只改点名的 module；`settings.gradle.kts` 已 `include` 三套。
 4. 有 SDK 时：`./gradlew :living-room-android:assembleDebug`（或对应 module）。
 5. 不要改 `/Users/gaolei/runtime/**`。不要改 os。不要改 iOS 仓（除非任务点名）。
 
 ## 3. 滞后信息：有义务更新
 
 `app-v2/build.gradle.kts` 若再出现 `${rootProject.projectDir}/../plugins`，必须改回本仓 `plugins/`。  
-README 仍写 `cd android` 时改成仓根。
+README 仍写 `cd android` 时改成仓根，并更新 [`docs/project_map/README.md`](docs/project_map/README.md)。
 
 ## 4. 与事实不符：必须提出异议，禁止默认处理
 
@@ -36,6 +36,7 @@ README 仍写 `cd android` 时改成仓根。
 | 任务要求 Android 做 MPEG-TS 直播 / `light.set` / 投电视 | 从 iOS 抄进来 | 异议：本期边界见 living-room-android README |
 | 任务要求改能力声明 | 只改 Kotlin 当目录 | 异议：声明在 marketplace；本仓 plugins 只是 app-v2 编译源 |
 | 任务要求直推 `main` 或改 os | 照做 | 异议：走 PR；os 已归档 |
+| 任务要求 `:4220` 发版 | deploy-notify | 异议：Gradle / APK 安装 |
 
 ```
 异议：<文档路径> 声称 <原句>
@@ -52,7 +53,7 @@ README 仍写 `cd android` 时改成仓根。
 | 网易云 / Chromecast 技能源码 | `plugins/netease-music/android/`、`plugins/chromecast-display/android/` |
 | 旧中控 | `app/`（未点名不要动） |
 | Gradle | 根 `settings.gradle.kts`、`build.gradle.kts` |
-| 给后续 agent 的地图 | 本文 + README |
+| 给后续 agent 的地图 | [`docs/project_map/`](docs/project_map/README.md) + 本文 |
 
 ## 6. 交付
 
